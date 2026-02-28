@@ -2,7 +2,7 @@
 > [!IMPORTANT]
 > tree-sitter-cli required version 26 or higher to compile parsers
 
-## required
+## Required
 - tree-sitter-cli
 - lua
 - python
