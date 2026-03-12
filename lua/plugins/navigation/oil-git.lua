@@ -1,6 +1,6 @@
 return {
-    "benomahony/oil-git.nvim",
-    dependencies = { "stevearc/oil.nvim" },
-    -- No opts or config needed! Works automatically
-    event = "VeryLazy"
+    -- "benomahony/oil-git.nvim",
+    -- dependencies = { "stevearc/oil.nvim" },
+    -- -- No opts or config needed! Works automatically
+    -- event = "VeryLazy"
 }
