@@ -18,7 +18,16 @@ return {
             },
         },
         sources = {
-            default = { 'lsp', 'path', 'buffer', 'snippets' },
+            default = { 'lsp', 'path', 'buffer', 'snippets', 'minuet'},
+            providers = {
+                minuet = {
+                    name = 'minuet',
+                    module = 'minuet.blink',
+                    async = true,
+                    timeout_ms = 3000,
+                    score_offset = 50
+                },
+            },
         },
         completion = {
             list = { max_items = 50 },
