@@ -6,6 +6,30 @@ local function ollama_running()
     return result ~= ""
 end
 
+local color_cache = {}
+
+local function get_color(doc, kind)
+    if not doc or doc == "" then return nil end
+
+    local key = doc .. ":" .. kind
+    if color_cache[key] ~= nil then
+        return color_cache[key]
+    end
+
+    local ok, result = pcall(function()
+        return require("nvim-highlight-colors").format(doc, { kind = kind })
+    end)
+
+    color_cache[key] = ok and result or false
+    return color_cache[key]
+end
+
+vim.schedule(function()
+  vim.defer_fn(function()
+    color_cache = {}
+  end, 600000)
+end)
+
 return {
     'saghen/blink.cmp',
     dependencies = {
@@ -13,7 +37,6 @@ return {
         { 'brenoprata10/nvim-highlight-colors' }
     },
     version = '1.*',
-
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
@@ -26,24 +49,25 @@ return {
             },
         },
         sources = {
-            default = function()
-                local src = { 'lsp', 'path', 'buffer', 'snippets' }
-
-                if ollama_running() then
-                    table.insert(src, 'minuet')
-                end
-
-                return src
-            end,
-            providers = {
-                minuet = {
-                    name = 'minuet',
-                    module = 'minuet.blink',
-                    async = true,
-                    timeout_ms = 3000,
-                    score_offset = 50
-                },
-            },
+            default = { 'lsp', 'path', 'buffer', 'snippets' }
+            -- default = function()
+            --     local src = { 'lsp', 'path', 'buffer', 'snippets' }
+            --
+            --     if ollama_running() then
+            --         table.insert(src, 'minuet')
+            --     end
+            --
+            --     return src
+            -- end,
+            -- providers = {
+            --     minuet = {
+            --         name = 'minuet',
+            --         module = 'minuet.blink',
+            --         async = true,
+            --         timeout_ms = 3000,
+            --         score_offset = 50
+            --     },
+            -- },
         },
         completion = {
             list = { max_items = 50 },
@@ -58,32 +82,25 @@ return {
                         -- customize the drawing of kind icons
                         kind_icon = {
                             text = function(ctx)
-                                -- default kind icon
-                                local icon = ctx.kind_icon
-                                -- if LSP source, check for color derived from documentation
-                                if ctx.item.source_name == "LSP" then
-                                    local color_item = require("nvim-highlight-colors").format(ctx.item.documentation,
-                                        { kind = ctx.kind })
-                                    if color_item and color_item.abbr ~= "" then
-                                        icon = color_item.abbr
-                                    end
+                                local color_item = get_color(ctx.item.documentation, ctx.kind)
+
+                                if color_item and color_item.abbr ~= "" then
+                                    return color_item.abbr .. ctx.icon_gap
                                 end
-                                return icon .. ctx.icon_gap
+
+                                return ctx.kind_icon .. ctx.icon_gap
                             end,
+
                             highlight = function(ctx)
-                                -- default highlight group
-                                local highlight = "BlinkCmpKind" .. ctx.kind
-                                -- if LSP source, check for color derived from documentation
-                                if ctx.item.source_name == "LSP" then
-                                    local color_item = require("nvim-highlight-colors").format(ctx.item.documentation,
-                                        { kind = ctx.kind })
-                                    if color_item and color_item.abbr_hl_group then
-                                        highlight = color_item.abbr_hl_group
-                                    end
+                                local color_item = get_color(ctx.item.documentation, ctx.kind)
+
+                                if color_item and color_item.abbr_hl_group then
+                                    return color_item.abbr_hl_group
                                 end
-                                return highlight
+
+                                return "BlinkCmpKind" .. ctx.kind
                             end,
-                        },
+                        }
                     },
                 },
             }
