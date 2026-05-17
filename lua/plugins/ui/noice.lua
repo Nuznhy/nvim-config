@@ -1,25 +1,3 @@
-local function transparent_noice()
-  local groups = {
-    "NoiceCmdlinePopup",
-    "NoiceCmdlinePopupBorder",
-    "NoiceCmdlinePopupBorderCmdline",
-    "NoiceCmdlinePopupBorderSearch",
-    "NoiceCmdlinePopupBorderHelp",
-    "NoiceCmdlinePopupBorderLua",
-    "NoiceCmdlinePopupBorderInput",
-    "NoiceCmdlinePopupTitle",
-  }
-
-  for _, group in ipairs(groups) do
-    vim.api.nvim_set_hl(0, group, { bg = "NONE" })
-  end
-end
-
-transparent_noice()
-
-vim.api.nvim_create_autocmd("ColorScheme", {
-  callback = transparent_noice,
-})
 return {
     {
         "folke/noice.nvim",
@@ -70,6 +48,22 @@ return {
             "MunifTanjim/nui.nvim",
             "rcarriga/nvim-notify",
         },
+        config = function(_, opts)
+            require("noice").setup(opts)
+
+            for _, group in ipairs({
+                "NoiceCmdlinePopup",
+                "NoiceCmdlinePopupBorder",
+                "NoiceCmdlinePopupBorderCmdline",
+                "NoiceCmdlinePopupBorderSearch",
+                "NoiceCmdlinePopupBorderHelp",
+                "NoiceCmdlinePopupBorderLua",
+                "NoiceCmdlinePopupBorderInput",
+                "NoiceCmdlinePopupTitle",
+            }) do
+                vim.api.nvim_set_hl(0, group, { bg = "NONE" })
+            end
+        end,
     },
     {
         "rcarriga/nvim-notify",
