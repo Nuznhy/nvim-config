@@ -5,7 +5,7 @@ vim.lsp.config("nil_ls", {
 	root_markers = { "flake.nix" },
 })
 
-return {
-	servers = { "nil_ls" },
-	parsers = { "nix" },
-}
+-- return {
+-- 	servers = { "nil_ls" },
+-- 	parsers = { "nix" },
+-- }
