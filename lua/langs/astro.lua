@@ -1,8 +1,25 @@
-vim.lsp.config('astro-ls', {
-
+vim.filetype.add({
+  extension = {
+    astro = "astro",
+  },
 })
 
+vim.lsp.config("astro", {
+  cmd = { "astro-ls", "--stdio" },
+  filetypes = { "astro" },
+  root_markers = {
+    "package.json",
+    "astro.config.mjs",
+    "astro.config.ts",
+    "tsconfig.json",
+    "jsconfig.json",
+    ".git",
+  },
+})
+
+vim.lsp.enable("astro")
+
 return {
-    servers = { 'astro-ls' },
-    parsers = { 'astro' }
+  servers = { "astro" },
+  parsers = { "astro" },
 }
