@@ -10,11 +10,11 @@ return {
     'saghen/blink.cmp',
     dependencies = {
         { 'rafamadriz/friendly-snippets' },
-        { 'brenoprata10/nvim-highlight-colors' }
+        { 'brenoprata10/nvim-highlight-colors' },
+        { 'saghen/blink.lib' }
     },
     version = '1.*',
     ---@module 'blink.cmp'
-    ---@type blink.cmp.Config
     opts = {
         signature = { enabled = true },
         fuzzy = {

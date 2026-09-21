@@ -2,6 +2,9 @@ return {
 	{
 		"L3MON4D3/LuaSnip",
 		event = { "BufRead", "BufNewFile" },
+        dependencies = {
+            "rafamadriz/friendly-snippets",
+        },
 		config = function()
 			require("luasnip").config.set_config({
 				history = false,
