@@ -1,6 +1,16 @@
+local function path_breadcrumbs(path)
+    return (path:gsub('/', ' › '))
+end
+
+local function code_context()
+    local navic = require('nvim-navic')
+    local location = navic.is_available() and navic.get_location() or ''
+    return location ~= '' and location or ''
+end
+
 return {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    dependencies = { 'nvim-tree/nvim-web-devicons', 'SmiteshP/nvim-navic' },
     opts = {
         options = {
             icons_enabled = true,
@@ -43,7 +53,10 @@ return {
                 end }
             },
             lualine_b = { 'branch', 'diff', 'diagnostics' },
-            lualine_c = { 'filename' },
+            lualine_c = {
+                { 'filetype', icon_only = true, separator = '', padding = { left = 1, right = 0 } },
+                { 'filename', path = 1, fmt = path_breadcrumbs },
+            },
             lualine_x = { 'lsp_status' },
             lualine_y = { 'filetype' },
             lualine_z = { 'location' }
@@ -51,12 +64,20 @@ return {
         inactive_sections = {
             lualine_a = {},
             lualine_b = {},
-            lualine_c = { 'filename' },
+            lualine_c = {
+                { 'filetype', icon_only = true, separator = '', padding = { left = 1, right = 0 } },
+                { 'filename', path = 1, fmt = path_breadcrumbs },
+            },
             lualine_x = { 'location' },
             lualine_y = {},
             lualine_z = {}
         },
-        winbar = { lualine_c = { 'buffers' } },
+        winbar = {
+            lualine_c = { code_context },
+        },
+        inactive_winbar = {
+            lualine_c = { code_context },
+        },
         tabline = {},
         extensions = {}
     }
