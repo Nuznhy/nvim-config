@@ -5,9 +5,12 @@ return {
         opts = {
             views = {
                 cmdline_popup = {
+                    border = { style = "rounded" },
                     win_options = {
                         winhighlight = {
-                            Normal = "NormalFloat",
+                            -- NUI draws this padded border inside another window.
+                            -- Match the editor so its background doesn't frame the outline.
+                            Normal = "Normal",
                             FloatBorder = "FloatBorder",
                             FloatTitle = "FloatTitle",
                         },
@@ -15,6 +18,7 @@ return {
                 },
 
                 popupmenu = {
+                    border = { style = "rounded" },
                     win_options = {
                         winhighlight = {
                             Normal = "Pmenu",
@@ -25,6 +29,7 @@ return {
                 },
 
                 confirm = {
+                    border = { style = "rounded" },
                     win_options = {
                         winhighlight = {
                             Normal = "NormalFloat",
@@ -34,6 +39,7 @@ return {
                 },
 
                 hover = {
+                    border = { style = "rounded" },
                     win_options = {
                         winhighlight = {
                             Normal = "NormalFloat",
@@ -48,27 +54,12 @@ return {
             "MunifTanjim/nui.nvim",
             "rcarriga/nvim-notify",
         },
-        config = function(_, opts)
-            require("noice").setup(opts)
-
-            for _, group in ipairs({
-                "NoiceCmdlinePopup",
-                "NoiceCmdlinePopupBorder",
-                "NoiceCmdlinePopupBorderCmdline",
-                "NoiceCmdlinePopupBorderSearch",
-                "NoiceCmdlinePopupBorderHelp",
-                "NoiceCmdlinePopupBorderLua",
-                "NoiceCmdlinePopupBorderInput",
-                "NoiceCmdlinePopupTitle",
-            }) do
-                vim.api.nvim_set_hl(0, group, { bg = "NONE" })
-            end
-        end,
     },
     {
         "rcarriga/nvim-notify",
         opts = {
-            background_colour = "#000000",
+            background_colour = "NormalFloat",
+            stages = "static",
         }
     },
 }

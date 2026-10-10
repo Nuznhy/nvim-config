@@ -16,7 +16,7 @@ return {
     version = '1.*',
     ---@module 'blink.cmp'
     opts = {
-        signature = { enabled = true },
+        signature = { enabled = true, window = { border = "rounded" } },
         fuzzy = {
             sorts = {
                 'exact',
@@ -48,8 +48,13 @@ return {
         completion = {
             list = { max_items = 50 },
             trigger = { prefetch_on_insert = false },
-            documentation = { auto_show = true, auto_show_delay_ms = 500 },
+            documentation = {
+                auto_show = true,
+                auto_show_delay_ms = 500,
+                window = { border = "rounded" },
+            },
             menu = {
+                border = "rounded",
                 auto_show = true,
                 draw = {
                     treesitter = { "lsp" },

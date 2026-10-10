@@ -1,4 +1,5 @@
 require("config.options")
+require("config.float-borders")
 require("config.keymaps")
 -- require("config.lsp")
 require("config.lazy")

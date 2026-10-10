@@ -18,7 +18,7 @@ vim.keymap.set({ 'n', 'v', 'x' }, '<leader>y', '"+y<CR>')
 vim.keymap.set({ 'n', 'v', 'x' }, '<leader>d', '"+d<CR>')
 
 -- file view hop / split --
-vim.keymap.set({ 'n', 'v', 'x' }, '<leader>s', ':e #<CR>')
+vim.keymap.set({ 'n', 'v', 'x' }, '<leader>ss', ':e #<CR>', { desc = 'Switch to previous file' })
 vim.keymap.set({ 'n', 'v', 'x' }, '<leader>S', ':vert sf #<CR>')
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
@@ -29,9 +29,6 @@ vim.diagnostic.config({ jump = { float = true } })
 
 vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action)
 vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename)
-
-vim.keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>")
-vim.keymap.set("n", "<S-h>", "<cmd>Telescope buffers sort_mru=true sort_lastused=true initial_mode=normal<cr>")
 
 local function toggle_checkbox()
   local row = vim.api.nvim_win_get_cursor(0)[1]

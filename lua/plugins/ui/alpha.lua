@@ -68,8 +68,8 @@ return {
         -- 2. Configure Buttons
         dashboard.section.buttons.val = {
             dashboard.button("e", "   New file", ":ene <bar> startinsert <cr>"),
-            dashboard.button("f", "   Find file", ":Telescope find_files<cr>"),
-            dashboard.button("r", "   Recent", ":Telescope oldfiles<cr>"),
+            dashboard.button("f", "   Find file", ":Pick files<cr>"),
+            dashboard.button("r", "   Recent", ":Pick oldfiles<cr>"),
             dashboard.button("s", "   Settings", "<cmd>Oil ~/.config/nvim<CR>"),
             dashboard.button("q", "   Quit nvim", ":qa<CR>"),
         }
