@@ -21,11 +21,16 @@ vim.lsp.config("qmlls", {
                 vim.env.VIRTUAL_ENV .. "/bin/pyside6-qmlls")
         end
 
-        vim.list_extend(candidates, { "pyside6-qmlls", "qmlls6", "qmlls" })
+        vim.list_extend(candidates, { "/usr/lib/qt6/bin/qmlls", "qmlls6", "qmlls", "pyside6-qmlls" })
 
         for _, executable in ipairs(candidates) do
             if vim.fn.executable(executable) == 1 then
-                return vim.lsp.rpc.start({ executable }, dispatchers, {
+                local command = { executable }
+                local imports = root .. "/.qml-imports"
+                if vim.fn.isdirectory(imports) == 1 then
+                    vim.list_extend(command, { "-I", imports })
+                end
+                return vim.lsp.rpc.start(command, dispatchers, {
                     cwd = root,
                     env = config.cmd_env,
                 })

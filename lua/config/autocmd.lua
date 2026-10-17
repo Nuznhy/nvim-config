@@ -77,3 +77,13 @@ vim.api.nvim_create_autocmd("BufWritePre", {
         require("conform").format({ bufnr = args.buf })
     end,
 })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    if vim.bo[args.buf].filetype == "qml" then
+      vim.lsp.semantic_tokens.enable(false, {
+        bufnr = args.buf,
+      })
+    end
+  end,
+})

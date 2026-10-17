@@ -8,7 +8,8 @@ return {
             typescript = { "prettierd", "prettier", stop_after_first = true },
             vue = { "prettierd", "prettier", stop_after_first = true },
             htmldjango = { "djlint" },
-            twig = { "djlint" }
+            twig = { "djlint" },
+            qml = {"qmlformat"}
         },
         formatters = {
             djlint = {
