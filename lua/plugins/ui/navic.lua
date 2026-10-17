@@ -3,7 +3,10 @@ return {
 	dependencies = "neovim/nvim-lspconfig",
 	opts = {
 		highlight = true,
-		lsp = { auto_attach = true },
+		lsp = {
+			auto_attach = true,
+			preference = { "basedpyright", "pytest_language_server" },
+		},
 		separator = " › ",
 	},
 	config = function(_, opts)
