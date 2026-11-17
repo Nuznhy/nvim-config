@@ -9,7 +9,9 @@ return {
             vue = { "prettierd", "prettier", stop_after_first = true },
             htmldjango = { "djlint" },
             twig = { "djlint" },
-            qml = {"qmlformat"}
+            qml = { "qmlformat" },
+            c = { "clang-format" },
+            cpp = { "clang-format" }
         },
         formatters = {
             djlint = {

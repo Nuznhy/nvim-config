@@ -3,7 +3,24 @@ return {
         "folke/noice.nvim",
         event = "VeryLazy",
         opts = {
+            lsp = {
+                -- Blink already provides the compact signature hint while typing.
+                signature = { auto_open = { enabled = false } },
+                documentation = { view = "documentation" },
+            },
             views = {
+                -- Reserve space for full docs instead of covering the editing window.
+                documentation = {
+                    view = "split",
+                    position = "bottom",
+                    size = "30%",
+                    enter = false,
+                    win_options = {
+                        wrap = true,
+                        linebreak = true,
+                        winhighlight = { Normal = "NormalFloat" },
+                    },
+                },
                 cmdline_popup = {
                     border = { style = "rounded" },
                     win_options = {
