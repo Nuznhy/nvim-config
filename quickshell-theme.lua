@@ -1,6 +1,6 @@
 -- Generated integration loader. Colors and paths are supplied by the renderer.
 local name = 'quickshell-config'
-local path = "/home/nuznhy/.config/nvim/colors/quickshell-config.lua"
+local path = "/home/mnuzhnyi/.config/nvim/colors/quickshell-config.lua"
 local group = vim.api.nvim_create_augroup('QuickshellThemeSync', { clear = true })
 local prior = vim.g.quickshell_prior_theme or vim.g.colors_name or 'default'
 local prior_background = vim.g.quickshell_prior_background or vim.o.background
