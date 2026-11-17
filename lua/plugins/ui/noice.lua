@@ -3,6 +3,9 @@ return {
         "folke/noice.nvim",
         event = "VeryLazy",
         opts = {
+            lsp = {
+                signature = { enabled = false },
+            },
             views = {
                 cmdline_popup = {
                     border = { style = "rounded" },
